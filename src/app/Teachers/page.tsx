@@ -54,7 +54,7 @@ export default async function page() {
       <section className='w-full my-3'>
         <hr />
         <div id='teach-header' className='grid grid-cols-6 my-2 text-[#83c5be] font-semibold text-lg'>
-          <h3 className='col-span-2'>Name</h3>
+          <h3 className='col-span-2'>Namee</h3>
           <h3 className='text-center'>Deactivate</h3>
           <h3 className='text-center'>Make HOD</h3>
           <h3 className='text-center'>Papers</h3>
