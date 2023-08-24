@@ -1,7 +1,7 @@
 import React from "react";
-import { PiStudentFill, PiChalkboardTeacherBold } from "react-icons/Pi";
+import { PiStudentFill, PiChalkboardTeacherBold } from "react-icons/pi";
 // import { CgProfile } from "react-icons/cg";
-import { BsFillBuildingFill, BsFillCloudUploadFill } from "react-icons/Bs";
+import { BsFillBuildingFill, BsFillCloudUploadFill } from "react-icons/bs";
 import AddFacultyButton from "../components/FormModals/addFaculty/AddFacultyButton";
 import AddDepartmentButton from "../components/FormModals/addDepartment/AddDepartmentButton";
 import AddStudentsButton from "../components/FormModals/addStudents/AddStudentsButton";
