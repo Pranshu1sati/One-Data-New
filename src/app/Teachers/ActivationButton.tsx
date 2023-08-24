@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import axios from "axios";
-import { BsPersonFillX, BsFillPersonCheckFill } from "react-icons/Bs";
+// import { BsPersonFillX, BsFillPersonCheckFill } from "react-icons/bs";
 
 interface ActivateButtonProps {
   teacherId: string;
@@ -30,8 +30,8 @@ const ActivateButton: React.FC<ActivateButtonProps> = ({ teacherId, isActive }) 
 
   return (
     <button id="activate" onClick={handleToggle}>
-      {isActive ? <BsPersonFillX /> : <BsFillPersonCheckFill />}
-    </button>
+  {isActive ? "❌" : "✓"}
+</button>
   );
 };
 

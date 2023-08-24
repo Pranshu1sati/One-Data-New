@@ -11,9 +11,9 @@ import {
   MdExitToApp,
   MdIntegrationInstructions
 } from "react-icons/md";
-import {IoMdArrowDroprightCircle} from 'react-icons/Io'
+import {IoMdArrowDroprightCircle} from 'react-icons/io'
 import {HiSwitchHorizontal} from 'react-icons/hi'
-import {PiStudentBold} from 'react-icons/Pi'
+import {PiStudentBold} from 'react-icons/pi'
 import { CgProfile } from "react-icons/cg";
 // import { FaRegComments } from "react-icons/fa";
 // import { BiMessageSquareDots } from "react-icons/bi";
