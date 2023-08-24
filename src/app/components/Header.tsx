@@ -1,19 +1,12 @@
-'use client'
-import {use, useState} from 'react'
-import {usePathname} from "next/navigation"
+// 'use client'
+// import {use, useState} from 'react'
+// import {usePathname} from "next/navigation"
 import * as React from 'react'
-import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid'
-import Link from 'next/link'
+// import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid'
+// import Link from 'next/link'
 const header = () => {
-    const path = usePathname();
-    const isPublic = path ==='/login'
-    let Links =[
-        {name:"Home",link:"/"},
-        {name:"Dashboard",link:"/Dashboard"},
-        {name:"NIRF",link:"/NIRF"},
-        {name:"Contact",link:"/Contact"},
-      ];
-    const [open, setIsOpen] = useState(false);
+    // const path = usePathname();
+
   return (
     <div className='sticky shadow-md w-full z-50 top-0'>
            <div className='md:flex items-center justify-center bg-white py-0 md:px-8 px-7'>

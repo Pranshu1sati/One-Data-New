@@ -30,14 +30,14 @@ function SideNavbar() {
         {({ open }) => (
           <>
             <Disclosure.Button
-              className="z-40 -ml-1 absolute md:text-lg top-4 left-0 inline-flex items-center peer justify-center rounded-md p-0 text-gray-800 hover:bg-indigo-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group"
+              className="z-50 ml-1 absolute md:text-lg top-4 left-0 inline-flex items-center peer justify-center rounded-md p-0 text-gray-800 hover:bg-indigo-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group"
             > <IoMdArrowDroprightCircle/>
               
             </Disclosure.Button>
             <Disclosure.Panel
               className={`${
                 open ? "block" : "hidden"
-              } mt-20 p-6 w-1/2 h-screen border-solid-8-black bg-white z-10 fixed top-0 -left-96 lg:left-0 lg:w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
+              } pt-20 p-6 w-1/2 h-screen border-solid-8-black bg-white z-10 fixed top-0 -left-96 lg:left-0 lg:w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
             style={{minHeight:"100%"}}
             >
               <div className="flex flex-col justify-start item-center">

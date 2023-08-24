@@ -1,12 +1,12 @@
 import React from "react";
 import { PiStudentFill, PiChalkboardTeacherBold } from "react-icons/Pi";
-import { CgProfile } from "react-icons/cg";
+// import { CgProfile } from "react-icons/cg";
 import { BsFillBuildingFill, BsFillCloudUploadFill } from "react-icons/Bs";
 import AddFacultyButton from "../components/FormModals/addFaculty/AddFacultyButton";
 import AddDepartmentButton from "../components/FormModals/addDepartment/AddDepartmentButton";
 import AddStudentsButton from "../components/FormModals/addStudents/AddStudentsButton";
 
-import axios from "axios";
+// import axios from "axios";
 import DepartmentContainer from "../components/DashboardComponents/DepartmentContainer";
 import UploadFiles from "./UploadFiles";
 
@@ -35,7 +35,7 @@ export async function getDepartment() {
         departments: data, // You can pass any data you fetched from the API here
     };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return {
         departments: [], // Return an empty array or handle the error as needed
     };
@@ -45,10 +45,10 @@ export async function getDepartment() {
 const Dashboard: React.FC<DashboardProps> = async() => {
   const apiEnd = process.env.NEXT_PUBLIC_API;
   // console.log(departments);
-  console.log(apiEnd);
+  // console.log(apiEnd);
   const {departments}=await getDepartment();
   // const data=departments;
-  console.log(departments,"data found");
+  // console.log(departments,"data found");
   // const [loading,setLoading]=useState<Boolean>(true);
   return (
     <article className="mt-16 p-5 w-full">
