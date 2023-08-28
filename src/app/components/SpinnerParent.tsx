@@ -1,10 +1,9 @@
+import Spinner from "./Spinner";
+
 export default function SpinnerParent() {
   return (
-<div className="fixed z-50 w-full h-full flex justify-center items-center align-center bg-neutral-400 backdrop-blur-sm bg-white/20">
-    <div className=" h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-  role="status">
-  
-    </div>
+<div className="z-50 fixed inset-0  flex justify-center items-center align-center bg-neutral-400 backdrop-blur-sm bg-white/20">
+    <Spinner></Spinner>
 </div>
   )
 }

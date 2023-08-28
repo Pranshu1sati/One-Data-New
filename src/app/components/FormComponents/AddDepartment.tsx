@@ -1,31 +1,39 @@
+'use client'
 import axios from 'axios';
+import {useState} from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
+import SpinnerParent from '../SpinnerParent';
 interface FormValues {
     name: string;
   }
 export default function AddDepartment() {
+  const [loading, setIsLoading] = useState(false)
   const api=process.env.NEXT_PUBLIC_API;
     const initialValues: FormValues = {
         name: ''
       };
       const handleSubmit = async (values: FormValues, { resetForm }: { resetForm: () => void }) => {
         // Send the form data to the backend API
-        await axios.post(`${api}/department/register`, values)
-          .then((response:any) => {
-            // Handle the API response if needed
-            console.log(response);
-            // alert('Form data submitted successfully!');
-            resetForm();
-          })
-
-          .catch((error:any) => {
-
-            // Handle errors if necessary
-            console.error('Error submitting form:', error);
-            alert('An error occurred while submitting the form.');
-          });
+        setIsLoading(true);
+        try {
+          const response = await axios.post(`${api}/department/register`, values);
+          toast.success(response.data.message);
+          resetForm();
+        } catch (error : any) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            toast.error(error.response.data.message);
+          } else {
+            // Something happened in setting up the request or sending the request
+            toast.error('An error occurred while submitting the form.');
+          }
+        } finally {
+          setIsLoading(false);
+        }
       };
+      
 
       const validationSchema = Yup.object({
         name: Yup.string().required('Department Name is required'),
@@ -34,11 +42,12 @@ export default function AddDepartment() {
     
     
   return (
+    <>
+    {loading&&<SpinnerParent/>}
     <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
-    onSubmit={handleSubmit}
-  >
+    onSubmit={handleSubmit}>
     <div>
       <Form className="px-4 rounded mx-auto max-w-3xl w-full my-8 Fields space-y-4 mt-8">
         <div>
@@ -77,5 +86,6 @@ export default function AddDepartment() {
       </Form>
     </div>
   </Formik>
+  </>
   )
 }

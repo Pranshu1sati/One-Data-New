@@ -1,18 +1,23 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import axios from "axios";
-// import { BsPersonFillX, BsFillPersonCheckFill } from "react-icons/bs";
+import { BsPersonFillX, BsFillPersonCheckFill } from "react-icons/Bs";
+import Spinner from "../components/Spinner";
+import { toast } from "react-hot-toast";
 
 interface ActivateButtonProps {
   teacherId: string;
   isActive: boolean;
 }
 const ActivateButton: React.FC<ActivateButtonProps> = ({ teacherId, isActive }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const handleToggle = () => {
-    axios.post(
+  const handleToggle = async() => {
+    try{
+    setIsLoading(!isLoading)
+    const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API}/teacher/activate`,
       {
         teacherId,
@@ -24,14 +29,22 @@ const ActivateButton: React.FC<ActivateButtonProps> = ({ teacherId, isActive }) 
         },
       }
     );
+    toast.success(res.data.message)
     router.refresh();
-    router.push("/Teachers");
+    router.push("/Teachers");}
+    catch(error : any){
+      toast.error(error.res.data.message)
+    }
+    finally{
+      setIsLoading(false);
+    }
   };
 
   return (
     <button id="activate" onClick={handleToggle}>
-  {isActive ? "❌" : "✓"}
-</button>
+      
+      { isLoading ? <Spinner/> : isActive ? <BsPersonFillX /> : <BsFillPersonCheckFill />}
+    </button>
   );
 };
 

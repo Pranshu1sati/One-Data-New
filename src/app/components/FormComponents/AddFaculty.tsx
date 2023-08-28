@@ -4,6 +4,9 @@ import * as Yup from 'yup';
 import ArrayInput from './ArrayInput'
 import { useState } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
+import SpinnerParent from '../SpinnerParent';
+import axios from 'axios';
 interface FormValues {
   firstName: string;
   lastName: string;
@@ -17,6 +20,7 @@ interface FormValues {
 }
 
 export default function AddFaculty() {
+  const [loading, setIsLoading] = useState(false)
   const initialValues: FormValues = {
     firstName: '',
     lastName: '',
@@ -39,8 +43,22 @@ export default function AddFaculty() {
     empId : Yup.string().required("This is required ")
   });
 
-  const handleSubmit = (values: FormValues) => {
-    alert(JSON.stringify(values, null, 2));
+  const handleSubmit = async (values: FormValues) => {
+    
+    //alert(JSON.stringify(values, null, 2));
+    try{
+      setIsLoading(true)
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/teacher/register`, values)
+      // setIsLoading(true)
+      //axious.postreq()
+      toast.success("Registration seccesfull")
+    }
+    catch(error: any){
+      toast.error(error.response.data.message)
+    }
+    finally{
+      setIsLoading(false)
+    }
   };
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -58,7 +76,10 @@ export default function AddFaculty() {
     });
   };
   return (
-    <Formik
+    <>
+    {
+    loading ? (<SpinnerParent/>) :
+    (<Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
     onSubmit={handleSubmit}
@@ -204,6 +225,8 @@ export default function AddFaculty() {
       </div> 
     </Form>
     </div>
-    </Formik>
+    </Formik>)
+  }
+  </>
   )
 }

@@ -16,7 +16,7 @@ interface Teacher {
   }
 export async function getTeachers() {
     try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/teacher/info`, {cache: 'no-store',} )
+    const res = await fetch("http://localhost:8001/api/teacher/info", {cache: 'no-store',} )
     const data = await res.json();
     return data
 }

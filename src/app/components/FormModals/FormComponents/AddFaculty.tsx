@@ -4,6 +4,9 @@ import * as Yup from 'yup';
 import ArrayInput from './ArrayInput'
 import { useState } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
+import SpinnerParent from '../../SpinnerParent';
+import axios from 'axios';
 interface FormValues {
   firstName: string;
   lastName: string;
@@ -17,6 +20,7 @@ interface FormValues {
 }
 
 export default function AddFaculty() {
+  const [loading, setIsLoading] = useState(false)
   const initialValues: FormValues = {
     firstName: '',
     lastName: '',
@@ -39,8 +43,23 @@ export default function AddFaculty() {
     empId : Yup.string().required("This is required ")
   });
 
-  const handleSubmit = (values: FormValues) => {
-    alert(JSON.stringify(values, null, 2));
+  const handleSubmit = async (values: FormValues) => {
+    
+    //alert(JSON.stringify(values, null, 2));
+    try{
+      setIsLoading(true)
+      // console.log("req send add teacher")
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/teacher/register`, values)
+      // setIsLoading(true)
+      //axious.postreq()
+      toast.success("Registration seccesfull")
+    }
+    catch(error: any){
+      toast.error(error.response.data.message)
+    }
+    finally{
+      setIsLoading(false)
+    }
   };
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -58,6 +77,9 @@ export default function AddFaculty() {
     });
   };
   return (
+    <>
+    
+   { loading &&(<SpinnerParent/>) }
     <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
@@ -197,13 +219,15 @@ export default function AddFaculty() {
      
       
       <div className="flex space-x-4"> 
-      <button onClick={prevStep} className='bg-blue-900 text-white uppercase py-2 px-4 rounded font-bold cursor-pointer border-2 border-slate-300 hover:bg-blue-500 transition duration-2oo ease-in-out'>Back</button> 
-      {(currentStep!=3) ?(<button onClick={nextStep} className='bg-blue-900 text-white uppercase py-2 px-4 rounded font-bold cursor-pointer border-2 border-slate-300 hover:bg-blue-500 transition duration-2oo ease-in-out'>Next</button>) :
+      <button onClick={prevStep} className='bg-blue-900 text-white uppercase py-2 px-4 rounded font-bold cursor-pointer border-2 border-slate-300 hover: bg-blue-500 transition duration-2oo ease-in-out'>Back</button> 
+      {(currentStep!=3) ?(<button onClick={nextStep} className='bg-blue-900 text-white uppercase py-2 px-4 rounded font-bold cursor-pointer border-2 border-slate-300 hover: bg-blue-500 transition duration-2oo ease-in-out'>Next</button>) :
       
-      (<button type="submit" className='bg-green-900 text-white uppercase py-2 px-4 rounded font-bold cursor-pointer border-2 border-slate-300 hover:bg-green-500 transition duration-2oo ease-in-out'>Submit</button>)}
+      (<button type="submit" className='bg-green-900 text-white uppercase py-2 px-4 rounded font-bold cursor-pointer border-2 border-slate-300 hover: bg-green-500 transition duration-2oo ease-in-out'>Submit</button>)}
       </div> 
     </Form>
     </div>
     </Formik>
+  
+  </>
   )
 }

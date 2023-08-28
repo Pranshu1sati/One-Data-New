@@ -29,7 +29,7 @@ interface Teacher {
       
       <h3 className='text-center'><ActivateButton teacherId={teacher._id} isActive={teacher.active} /></h3>
       <h3 className='text-center'><button>Set</button></h3>
-      <h3 className='text-center'>1000</h3>
+      <h3 className='text-center'>2000</h3>
        
       </div>
     );

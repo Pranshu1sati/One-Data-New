@@ -1,11 +1,13 @@
 'use client'
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import SpinnerParent from '../components/SpinnerParent';
+import {useState} from 'react'
 import {toast} from 'react-hot-toast'
-// import {useState} from 'ract';
+
+import * as Yup from 'yup';
+
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
@@ -14,16 +16,12 @@ const validationSchema = Yup.object().shape({
     .min(6, 'Password must be at least 6 characters')
     .required('Required'),
 });
-interface FormValues {
-  email: string;
-  password: string;
-}
-const LoginForm: React.FC = () => {
-  const initialValues: FormValues = {
-    email: "",
-    password : "",
-  }
 
+const LoginForm: React.FC = () => {
+  interface FormValues {
+    email: string;
+    password: string;
+  }
   const [loading, setLoading] = useState(false);
   const handleLogin = async (values : FormValues, { setSubmitting  } : any) => {
     try {
@@ -50,7 +48,7 @@ const LoginForm: React.FC = () => {
           </h2>
         </div>
         <Formik
-          initialValues={initialValues}
+          initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
           onSubmit={handleLogin}
         >

@@ -13,7 +13,7 @@ interface Department {
 // Use the Department type in the React.FC type annotation
 const DepartmentList: React.FC<{ department: Department }> = ({ department }) => {
   return (
-    <Link href={`/Dashboard/department/${department._id}`} className='grid grid-cols-6 my-2 text-black font-bold text-lg'>
+    <Link href={`/department/${department._id}`} className='grid grid-cols-6 my-2 text-black font-bold text-lg'>
       {/* Use the data from the department prop to populate the component */}
       <h3 className='col-span-2'>{department.name}</h3>
       <h3 className='text-center'>{department.hod?department.hod : <div>Not Set</div> }</h3>
