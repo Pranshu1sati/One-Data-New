@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { PiStudentFill, PiChalkboardTeacherBold } from "react-icons/Pi";
 import { CgProfile } from "react-icons/cg";
@@ -7,7 +8,7 @@ import AddStudentsButton from "./components/addStudents/AddStudentsButton";
 import AddDepartmentButton from "./components/addDepartment/AddDepartmentButton";
 import UploadFiles from "./components/UploadFiles";
 import AddFacultyButton from "./components/FormModals/addFaculty/AddFacultyButton";
-
+import { useSearchParams } from 'next/navigation'
 interface Department {
   id: number;
   name: string;
@@ -20,9 +21,11 @@ interface DashboardProps {
 }
 export async function getDepartment() {
   // console.log("I am running");
+  const campusParams = useSearchParams();
+  const selectedCampus=campusParams.get("campus") || "GEU";
   try {
     // Make the API call here and fetch the data from the API
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/department/info`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/department/info/?campus=${selectedCampus}`, { cache: 'no-store' });
     const data = await res.json();
 
     // Log the data to the console to inspect the response
@@ -43,12 +46,12 @@ export async function getDepartment() {
 const Home: React.FC<DashboardProps> = async() => {
   const apiEnd = process.env.NEXT_PUBLIC_API;
   // console.log(departments);
-  console.log(apiEnd);
+  // console.log(apiEnd);
   const {departments}=await getDepartment();
-  const {data,count}=departments;
+  const {data}=departments;
 
   // const data=departments;
-  console.log(departments,data,"data found");
+  // console.log(departments,data,"data found");
   // const [loading,setLoading]=useState<Boolean>(true);
   return (
     <article className=" p-5 w-full">

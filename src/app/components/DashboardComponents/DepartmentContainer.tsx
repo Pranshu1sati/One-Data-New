@@ -1,5 +1,6 @@
 import React from 'react';
 import DepartmentList from './DepartmentList';
+import Link from 'next/link';
 
 interface Department {
   _id: string;
@@ -13,7 +14,7 @@ interface DepartmentContainerProps {
 }
 
 const DepartmentContainer: React.FC<DepartmentContainerProps> = ({ departments }) => {
-    console.log(departments,"here is the props")
+    // console.log(departments,"here is the props")
 
   return (
     <article className='w-full rounded-lg p-5 bg-white text-black'>
@@ -43,6 +44,25 @@ const DepartmentContainer: React.FC<DepartmentContainerProps> = ({ departments }
           <h3 className='text-center'>Placed</h3>
         </div>
         <hr />
+        <div className='w-full grid grid-cols-4 place-items-center tracking-wider font-bold mb-3'>
+          <Link href={{
+            pathname:"/",
+            query:{campus:"GEU"}
+          }} className='bg-gray-500 w-full flex justify-center rounded-b-md   text-white'>GEU</Link>
+          <Link href={{
+            pathname:"/",
+            query:{campus:"GEMS"}
+          }}>GEHU-dehradun</Link>
+          <Link href={{
+            pathname:"/",
+            query:{campus:"GEMS"}
+          }}>GEHU-bheemtal</Link>
+          <Link href={{
+            pathname:"/",
+            query:{campus:"GEMS"}
+          }}>GEMS</Link>
+        </div>
+
         {/* Render the department list here */}
         {departments.map((department) => (
           <React.Fragment key={department._id}>
