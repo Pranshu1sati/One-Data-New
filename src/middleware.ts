@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
     // if (!cookie) return NextResponse.redirect(new URL('/login', request.url))
 
     const requestHeaders = new Headers(request.headers)
-    requestHeaders.set('user', 'hello')
+    requestHeaders.set('user', 'i set the user')
 
     const response = NextResponse.next({
         request: {

@@ -8,6 +8,9 @@ import AddStudentsButton from "./components/addStudents/AddStudentsButton";
 import AddDepartmentButton from "./components/addDepartment/AddDepartmentButton";
 import UploadFiles from "./components/UploadFiles";
 import AddFacultyButton from "./components/FormModals/addFaculty/AddFacultyButton";
+
+import { headers } from 'next/headers'
+
 interface Department {
   id: number;
   name: string;
@@ -21,6 +24,12 @@ interface DashboardProps {
 export async function getDepartment() {
   // console.log("I am running");
   const selectedCampus = "GEHU-dehradun";
+
+  const headersList = headers()
+  const user = headersList.get('user')
+  console.log(user);
+
+
   try {
     // Make the API call here and fetch the data from the API
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/department/info/?campus=${selectedCampus}`, { cache: 'no-store' });
