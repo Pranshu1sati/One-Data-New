@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 import React from "react";
 import { PiStudentFill, PiChalkboardTeacherBold } from "react-icons/Pi";
 import { CgProfile } from "react-icons/cg";
@@ -8,7 +8,6 @@ import AddStudentsButton from "./components/addStudents/AddStudentsButton";
 import AddDepartmentButton from "./components/addDepartment/AddDepartmentButton";
 import UploadFiles from "./components/UploadFiles";
 import AddFacultyButton from "./components/FormModals/addFaculty/AddFacultyButton";
-import { useSearchParams } from 'next/navigation'
 interface Department {
   id: number;
   name: string;
@@ -21,8 +20,7 @@ interface DashboardProps {
 }
 export async function getDepartment() {
   // console.log("I am running");
-  const campusParams = useSearchParams();
-  const selectedCampus=campusParams.get("campus") || "GEU";
+  const selectedCampus = "GEHU-dehradun";
   try {
     // Make the API call here and fetch the data from the API
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/department/info/?campus=${selectedCampus}`, { cache: 'no-store' });
@@ -33,22 +31,22 @@ export async function getDepartment() {
 
     // Pass the fetched data as props to the component
     return {
-        departments: data, // You can pass any data you fetched from the API here
+      departments: data, // You can pass any data you fetched from the API here
     };
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
-        departments: [], // Return an empty array or handle the error as needed
+      departments: [], // Return an empty array or handle the error as needed
     };
   }
 }
 
-const Home: React.FC<DashboardProps> = async() => {
+const Home: React.FC<DashboardProps> = async () => {
   const apiEnd = process.env.NEXT_PUBLIC_API;
   // console.log(departments);
   // console.log(apiEnd);
-  const {departments}=await getDepartment();
-  const {data}=departments;
+  const { departments } = await getDepartment();
+  const { data } = departments;
 
   // const data=departments;
   // console.log(departments,data,"data found");
@@ -60,7 +58,7 @@ const Home: React.FC<DashboardProps> = async() => {
         <div className="button bg-blue-500 text-white p-4 rounded-lg flex items-center">
           <PiChalkboardTeacherBold className="text-2xl mr-2" />
           <span>
-            <AddFacultyButton/>
+            <AddFacultyButton />
           </span>
         </div>
         <div className="button bg-green-500 text-white p-4 rounded-lg flex items-center">
@@ -78,19 +76,19 @@ const Home: React.FC<DashboardProps> = async() => {
         <div className="button bg-sky-500 text-white p-4 rounded-lg flex items-center">
           <BsFillCloudUploadFill className="text-2xl mr-2" />
           <span>
-            <UploadFiles route={"teacher"}/>
+            <UploadFiles route={"teacher"} />
           </span>
         </div>
         <div className="button bg-sky-500 text-white p-4 rounded-lg flex items-center">
           <BsFillCloudUploadFill className="text-2xl mr-2" />
           <span>
-          <UploadFiles route={"department"}/>
+            <UploadFiles route={"department"} />
           </span>
         </div>
         <div className="button bg-sky-500 text-white p-4 rounded-lg flex items-center">
           <BsFillCloudUploadFill className="text-2xl mr-2" />
           <span>
-          <UploadFiles route={"student"}/>
+            <UploadFiles route={"student"} />
           </span>
         </div>
       </div>

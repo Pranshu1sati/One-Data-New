@@ -3,14 +3,13 @@ import React from 'react';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import SpinnerParent from '../components/SpinnerParent';
-import {useState} from 'react'
-import {toast} from 'react-hot-toast'
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
+  employeeId: Yup.string()
     .required('Required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
@@ -19,20 +18,25 @@ const validationSchema = Yup.object().shape({
 
 const LoginForm: React.FC = () => {
   interface FormValues {
-    email: string;
+    employeeId: string;
     password: string;
   }
   const [loading, setLoading] = useState(false);
-  const handleLogin = async (values : FormValues, { setSubmitting  } : any) => {
+  const handleLogin = async (values: FormValues, { setSubmitting }: any) => {
     try {
       setLoading(true);
       // Make a POST request to your login API with the user's credentials
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, values);
-      toast.success(response.data.message)
+
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, values, { withCredentials: true });
+      console.log(response);
+
+      toast.success(response?.data.message)
       // console.log(response.data); // Handle the response data as needed
-    } catch (error : any) {
+    } catch (error: any) {
       // console.error('Login failed:', error);
-      toast.error(error.response.data.message)
+      console.log(error);
+
+      toast.error(error.response?.data.message)
     } finally {
       setLoading(false);
       setSubmitting(false);
@@ -40,7 +44,7 @@ const LoginForm: React.FC = () => {
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      {loading && <SpinnerParent/>}
+      {loading && <SpinnerParent />}
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -48,7 +52,7 @@ const LoginForm: React.FC = () => {
           </h2>
         </div>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ employeeId: '', password: '' }}
           validationSchema={validationSchema}
           onSubmit={handleLogin}
         >
@@ -61,14 +65,14 @@ const LoginForm: React.FC = () => {
                   </label>
                   <Field
                     id="email-address"
-                    name="email"
-                    type="email"
+                    name="employeeId"
+                    type="text"
                     autoComplete="email"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Email address"
                   />
-                  <ErrorMessage name="email" component="div" className="text-red-500 text-xs" />
+                  <ErrorMessage name="employeeId" component="div" className="text-red-500 text-xs" />
                 </div>
                 <div>
                   <label htmlFor="password" className="sr-only">

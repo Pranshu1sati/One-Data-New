@@ -21,11 +21,11 @@ const DepartmentContainer: React.FC<DepartmentContainerProps> = ({ departments }
       <div className='w-full flex'>
         <div>
           <h1 className='font-extrabold text-4xl'>Departments</h1>
-          <h2 className='font-semibold text-[#83c5be]'>{departments.length} teachers</h2>
+          <h2 className='font-semibold text-[#83c5be]'>{departments?.length} teachers</h2>
         </div>
         <div className='flex ml-auto'>
           <div className='font-extrabold flex flex-col items-center mx-4 text-xl'>
-            <div>{departments.length}</div>
+            <div>{departments?.length}</div>
             <div className='font-semibold text-[#83c5be]'>departments</div>
           </div>
           <div className='font-extrabold flex flex-col items-center text-xl'>
@@ -64,7 +64,7 @@ const DepartmentContainer: React.FC<DepartmentContainerProps> = ({ departments }
         </div>
 
         {/* Render the department list here */}
-        {departments.map((department) => (
+        {departments?.map((department) => (
           <React.Fragment key={department._id}>
             <DepartmentList department={department}/>
             <hr />
