@@ -26,8 +26,7 @@ export async function getDepartment() {
   const selectedCampus = "GEHU-dehradun";
 
   const headersList = headers()
-  const user = headersList.get('user')
-  console.log(user);
+  const user = JSON.parse(headersList.get('user') || "")  // get user data 
 
 
   try {
@@ -45,12 +44,17 @@ export async function getDepartment() {
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
-      departments: [], // Return an empty array or handle the error as needed
+      departments: [],
+      user // Return an empty array or handle the error as needed
     };
   }
 }
 
 const Home: React.FC<DashboardProps> = async () => {
+
+
+
+
   const apiEnd = process.env.NEXT_PUBLIC_API;
   // console.log(departments);
   // console.log(apiEnd);
