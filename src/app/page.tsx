@@ -27,6 +27,7 @@ export async function getDepartment() {
 
   const headersList = headers()
   const user = JSON.parse(headersList.get('user') || "")  // get user data 
+console.log(user.name);
 
 
   try {
