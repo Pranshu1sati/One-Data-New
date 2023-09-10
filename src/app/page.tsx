@@ -1,103 +1,110 @@
 'use client'
-import React from "react";
-import { PiStudentFill, PiChalkboardTeacherBold } from "react-icons/Pi";
-import { CgProfile } from "react-icons/cg";
-import { BsFillBuildingFill, BsFillCloudUploadFill } from "react-icons/Bs";
-import DepartmentContainer from "./components/DashboardComponents/DepartmentContainer";
-import AddStudentsButton from "./components/addStudents/AddStudentsButton";
-import AddDepartmentButton from "./components/addDepartment/AddDepartmentButton";
-import UploadFiles from "./components/UploadFiles";
-import AddFacultyButton from "./components/FormModals/addFaculty/AddFacultyButton";
-import { useSearchParams } from 'next/navigation'
-interface Department {
-  id: number;
-  name: string;
-  hod: string;
-  // Add other properties as needed
-}
+import React from 'react';
+import axios from 'axios';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 
-interface DashboardProps {
-  departments: Department[];
-}
-export async function getDepartment() {
-  // console.log("I am running");
-  const campusParams = useSearchParams();
-  const selectedCampus=campusParams.get("campus") || "GEU";
-  try {
-    // Make the API call here and fetch the data from the API
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/department/info/?campus=${selectedCampus}`, { cache: 'no-store' });
-    const data = await res.json();
+import {useState} from 'react'
+import {toast} from 'react-hot-toast'
 
-    // Log the data to the console to inspect the response
-    // console.log("API Response:", data);
+import * as Yup from 'yup';
+import SpinnerParent from './components/SpinnerParent';
+import Link from 'next/link';
 
-    // Pass the fetched data as props to the component
-    return {
-        departments: data, // You can pass any data you fetched from the API here
-    };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return {
-        departments: [], // Return an empty array or handle the error as needed
-    };
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Required'),
+});
+
+const LoginForm: React.FC = () => {
+  interface FormValues {
+    email: string;
+    password: string;
   }
-}
-
-const Home: React.FC<DashboardProps> = async() => {
-  const apiEnd = process.env.NEXT_PUBLIC_API;
-  // console.log(departments);
-  // console.log(apiEnd);
-  const {departments}=await getDepartment();
-  const {data}=departments;
-
-  // const data=departments;
-  // console.log(departments,data,"data found");
-  // const [loading,setLoading]=useState<Boolean>(true);
+  const [loading, setLoading] = useState(false);
+  const handleLogin = async (values : FormValues, { setSubmitting  } : any) => {
+    try {
+      setLoading(true);
+      // Make a POST request to your login API with the user's credentials
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, values);
+      toast.success(response.data.message)
+      // console.log(response.data); // Handle the response data as needed
+    } catch (error : any) {
+      // console.error('Login failed:', error);
+      toast.error(error.response.data.message)
+    } finally {
+      setLoading(false);
+      setSubmitting(false);
+    }
+  };
   return (
-    <article className=" p-5 w-full">
-      <DepartmentContainer departments={data} />
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div className="button bg-blue-500 text-white p-4 rounded-lg flex items-center">
-          <PiChalkboardTeacherBold className="text-2xl mr-2" />
-          <span>
-            <AddFacultyButton/>
-          </span>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <SpinnerParent/>}
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
         </div>
-        <div className="button bg-green-500 text-white p-4 rounded-lg flex items-center">
-          <PiStudentFill className="text-2xl mr-2" />
-          <span>
-            <AddStudentsButton />
-          </span>
-        </div>
-        <div className="button bg-red-500 text-white p-4 rounded-lg flex items-center">
-          <BsFillBuildingFill className="text-2xl mr-2" />
-          <span>
-            <AddDepartmentButton />
-          </span>
-        </div>
-        <div className="button bg-sky-500 text-white p-4 rounded-lg flex items-center">
-          <BsFillCloudUploadFill className="text-2xl mr-2" />
-          <span>
-            <UploadFiles route={"teacher"}/>
-          </span>
-        </div>
-        <div className="button bg-sky-500 text-white p-4 rounded-lg flex items-center">
-          <BsFillCloudUploadFill className="text-2xl mr-2" />
-          <span>
-          <UploadFiles route={"department"}/>
-          </span>
-        </div>
-        <div className="button bg-sky-500 text-white p-4 rounded-lg flex items-center">
-          <BsFillCloudUploadFill className="text-2xl mr-2" />
-          <span>
-          <UploadFiles route={"student"}/>
-          </span>
-        </div>
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          {({ isSubmitting }) => (
+            <Form className="mt-8 space-y-6">
+              <div className="rounded-md shadow-sm -space-y-px">
+                <div>
+                  <label htmlFor="email-address" className="sr-only">
+                    Email address
+                  </label>
+                  <Field
+                    id="email-address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Email address"
+                  />
+                  <ErrorMessage name="email" component="div" className="text-red-500 text-xs" />
+                </div>
+                <div>
+                  <label htmlFor="password" className="sr-only">
+                    Password
+                  </label>
+                  <Field
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Password"
+                  />
+                  <ErrorMessage name="password" component="div" className="text-red-500 text-xs" />
+                </div>
+              </div>
+
+              <div>
+                {/* <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Sign in
+                </button> */}
+                <Link href={"/dashboard"}>Signin</Link>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
-    </article>
+    </div>
   );
 };
 
-
-
-export default Home;
+export default LoginForm;

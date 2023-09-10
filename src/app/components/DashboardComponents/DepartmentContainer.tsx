@@ -46,19 +46,19 @@ const DepartmentContainer: React.FC<DepartmentContainerProps> = ({ departments }
         <hr />
         <div className='w-full grid grid-cols-4 place-items-center tracking-wider font-bold mb-3'>
           <Link href={{
-            pathname:"/",
+            pathname:"/dashboard",
             query:{campus:"GEU"}
           }} className='bg-gray-500 w-full flex justify-center rounded-b-md   text-white'>GEU</Link>
           <Link href={{
-            pathname:"/",
+            pathname:"/dashboard",
             query:{campus:"GEMS"}
           }}>GEHU-dehradun</Link>
           <Link href={{
-            pathname:"/",
+            pathname:"/dashboard",
             query:{campus:"GEMS"}
           }}>GEHU-bheemtal</Link>
           <Link href={{
-            pathname:"/",
+            pathname:"/dashboard",
             query:{campus:"GEMS"}
           }}>GEMS</Link>
         </div>
