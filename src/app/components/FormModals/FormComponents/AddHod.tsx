@@ -23,7 +23,7 @@ const AddHod: React.FC<ChangeHodProps> = ({ _id }) => {
     async function fetchTeachers() {
       try {
         const response = await axios.get('http://localhost:8001/api/teacher/info');
-        setTeachers(response.data);
+        setTeachers(response.data.data);
       } catch (error) {
         console.error('Error fetching teachers:', error);
       }
@@ -74,7 +74,7 @@ const AddHod: React.FC<ChangeHodProps> = ({ _id }) => {
             <label htmlFor="teacherId">Select Teacher</label>
             <Field as="select" id="teacherId" name="teacherId">
               <option value="">Select a teacher</option>
-              {teachers.map((teacher: any) => (
+              {teachers?.map((teacher: any) => (
                 <option key={teacher._id} value={teacher._id}>
                   {teacher.name}
                 </option>
