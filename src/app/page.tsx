@@ -26,10 +26,8 @@ export async function getDepartment() {
   const selectedCampus = "GEHU-dehradun";
 
   const headersList = headers()
-  const user:any=headersList.get("user");
-  const {isHod,department}=JSON.parse(user) ;
-  console.log(isHod,department,"here are the detials of the uesr");
-  console.log(headersList.get("user"),"here is the user");
+  const user = JSON.parse(headersList.get('user') || "")  // get user data 
+
 
   try {
     // Make the API call here and fetch the data from the API
