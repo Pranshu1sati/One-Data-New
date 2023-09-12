@@ -7,10 +7,10 @@ import { parse } from 'path';
 
 export async function middleware(request: NextRequest) {
 
-    if (request.nextUrl.pathname.startsWith('/login')) return NextResponse.next()
+    if (request.nextUrl.pathname.startsWith('/')) return NextResponse.next()
 
     const cookie = request.cookies.get('Authorization')
-    if (!cookie) return NextResponse.redirect(new URL('/login', request.url))
+    if (!cookie) return NextResponse.redirect(new URL('/', request.url))
 
 
 
