@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast'
 
 import * as Yup from 'yup';
 import SpinnerParent from './components/SpinnerParent';
+import { useRouter } from 'next/navigation';
 
 const validationSchema = Yup.object().shape({
   employeeId: Yup.string()
@@ -17,6 +18,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm: React.FC = () => {
+  const router = useRouter()
   interface FormValues {
     employeeId: string;
     password: string;
@@ -31,6 +33,7 @@ const LoginForm: React.FC = () => {
       console.log(response);
 
       toast.success(response?.data.message)
+      router.push("/dashboard")
       // console.log(response.data); // Handle the response data as needed
     } catch (error: any) {
       // console.error('Login failed:', error);

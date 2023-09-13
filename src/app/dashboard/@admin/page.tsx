@@ -34,6 +34,8 @@ export async function getDepartment() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/department/info/?campus=${selectedCampus}`, { cache: 'no-store' });
     const data = await res.json();
 
+    
+    // console.log(user,"here is the user")
     // Log the data to the console to inspect the response
     // console.log("API Response:", data);
 

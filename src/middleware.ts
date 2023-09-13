@@ -7,9 +7,10 @@ import { parse } from 'path';
 
 export async function middleware(request: NextRequest) {
 
-    if (request.nextUrl.pathname.startsWith('/')) return NextResponse.next()
+    if (request.nextUrl.pathname === '/') return NextResponse.next()
 
     const cookie = request.cookies.get('Authorization')
+
     if (!cookie) return NextResponse.redirect(new URL('/', request.url))
 
 
@@ -37,5 +38,5 @@ export async function middleware(request: NextRequest) {
 
 
 export const config = {
-    matcher: ['/((?!login|_next/static).*)',]
+    matcher: ["/((?!_next/static|_next/image|favicon.ico).*)",]
 }
