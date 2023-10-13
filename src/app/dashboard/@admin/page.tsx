@@ -10,6 +10,7 @@ import AddFacultyButton from "@/app/components/FormModals/addFaculty/AddFacultyB
 import AddStudentsButton from "@/app/components/FormModals/addStudents/AddStudentsButton";
 import AddDepartmentButton from "@/app/components/FormModals/addDepartment/AddDepartmentButton";
 import UploadFiles from "@/app/components/UploadFiles";
+import { useRouter } from "next/navigation";
 
 interface Department {
   id: number;
@@ -21,10 +22,10 @@ interface Department {
 interface DashboardProps {
   departments: Department[];
 }
-export async function getDepartment() {
+export async function getDepartment(campus:string) {
   // console.log("I am running");
-  const selectedCampus = "GEHU-dehradun";
-
+  const selectedCampus = campus || "GEU";
+  console.log(selectedCampus,"here is the selected campus")
   // const headersList = headers()
   // const user = JSON.parse(headersList.get('user') || "")  // get user data 
 
@@ -51,17 +52,16 @@ export async function getDepartment() {
   }
 }
 
-const page: React.FC<DashboardProps> = async () => {
-
-
-
-
+const page: React.FC<DashboardProps> = async (req:any) => {
   const apiEnd = process.env.NEXT_PUBLIC_API;
   // console.log(departments);
   // console.log(apiEnd);
-  const { departments } = await getDepartment();
+  const {searchParams}=req;
+  const campus=searchParams.campus;
+  console.log("params",);
+  const { departments } = await getDepartment(campus);
   const { data } = departments;
-
+  
   // const data=departments;
   // console.log(departments,data,"data found");
   // const [loading,setLoading]=useState<Boolean>(true);

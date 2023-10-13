@@ -29,7 +29,8 @@ const LoginForm: React.FC = () => {
       setLoading(true);
       // Make a POST request to your login API with the user's credentials
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, values, { withCredentials: true });
+      // const response = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, values, { withCredentials: true });
+      const response = await axios.post(`http://localhost:8001/api/auth/login`, values, { withCredentials: true });
       console.log(response);
 
       toast.success(response?.data.message)
