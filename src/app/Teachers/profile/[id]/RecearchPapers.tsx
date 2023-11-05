@@ -2,7 +2,7 @@
 import { useState } from "react";
 import React from "react";
 
-export default function page() {
+export default function RecerchPapers() {
   const [researchPapers, setResearchPapers] = useState([{
     title: 'General cardiovascular risk profile for use in primary care: the Framingham Heart Study',
     authors: 'RB D’Agostino Sr, RS Vasan, MJ Pencina, PA Wolf, M Cobain, ...Circulation 117 (6), 743-753, 2008',
@@ -119,13 +119,10 @@ export default function page() {
           <h2 className="font-semibold text-[#83c5be]">5</h2>
         </div>
         <div className="flex ml-auto">
-          <div className="font-extrabold flex flex-col items-center mx-4 text-xl">
-            <div>10</div>
-            <div className="font-semibold text-[#83c5be]">departments</div>
-          </div>
+          
           <div className="font-extrabold flex flex-col items-center text-xl">
             <div>113</div>
-            <div className="font-semibold text-[#83c5be]">teachers</div>
+            <div className="font-semibold text-[#83c5be]">Papers</div>
           </div>
         </div>
       </div>
@@ -149,15 +146,14 @@ export default function page() {
           {researchPapers.map((paper, index) => (
             <div
               key={index}
-              className="grid grid-cols-6 my-2 text-black font-bold text-lg"
-            >
+              className="grid grid-cols-6 my-2 text-black font-bold text-lg">
               <h3 className="col-span-2">{paper.title}</h3>
               <h3 className="text-center">Area of research</h3>
               <h3 className="text-center">
                 <button>ABC</button>
               </h3>
               <h3 className="text-center">CS</h3>
-              <hr />
+              <hr/>
             </div>
           ))}
         </div>

@@ -2,6 +2,7 @@
 import React from 'react';
 import ChangeHodButton from '../FormModals/changeHod/ChangeHodButton';
 import Link from 'next/link';
+import ActivateButton from '@/app/Teachers/ActivationButton';
 
 interface Department {
     _id: string;
@@ -13,6 +14,8 @@ interface Teacher {
     name: string;
     __v: number;
     hod: string | undefined;
+    active : boolean
+    designation : string
 }
 
 interface DepartmentContainerProps {
@@ -61,9 +64,12 @@ const DepTeachersContainer: React.FC<DepartmentContainerProps> = ({ teachers, de
                     <h3 className='text-center'>Joining Date</h3>
                     <h3 className='text-center'>Designation</h3>
                     <h3 className='text-center'>Papers</h3>
-                    <h3 className='text-center'>Placed</h3>
+                    <h3 className='text-center'>Acticvation</h3>
                 </div>
                 <hr />
+                <div
+            style={{ maxHeight: "400px", overflowY: "auto" }} // Adjust the height as needed
+          >
                 {teachers.map((teacher) => (
                     <React.Fragment key={teacher._id}>
                         {/* <DepartmentList teacher={teacher}/> */}
@@ -73,12 +79,13 @@ const DepTeachersContainer: React.FC<DepartmentContainerProps> = ({ teachers, de
                                 </Link>
       
                         <h3 className='text-center'>12/12/12</h3>
-                        <h3 className='text-center'>Associate Proff.</h3>
+                        <h3 className='text-center'>{teacher.designation}</h3>
                         <h3 className='text-center'>2000</h3>
-                        <h3 className='text-center'>Yes</h3>
+                        <h3 className='text-center'><ActivateButton teacherId={teacher._id} isActive ={teacher.active}/></h3>
                         </div>
                     </React.Fragment>
                 ))}
+            </div>
             </section>
         </article>
     );

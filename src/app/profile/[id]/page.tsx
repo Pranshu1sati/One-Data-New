@@ -1,14 +1,16 @@
 let Qualifications: Array<string>;
+import Image from "next/image";
 // Qualifications = ['Btech', 'Mtech', 'Doc']; 
 import * as React from "react";
 
 export default function Profile({ params }: any) {
+  const {id} = params;
   return (
     <>
     <div className="flex items-center justify-center">
       <div className="bg-white w-1/3 mt-10 rounded-lg">
         <div className="flex items-center justify-center pt-10 flex-col">
-          <img src="https://pbs.twimg.com/profile_images/723063700966395904/alv3tTL7_400x400.jpg" className="rounded-full w-32" alt="Profile" />
+          <Image src={`${process.env.NEXT_PUBLIC_API}/teacher/image/${id}`} className="rounded-full w-32" alt="Profile" />
           <h1 className="text-gray-800 font-bold text-xl mt-5">Babu Rao</h1>
           <h1 className="text-gray-500 text-sm">Role</h1>
           <h1 className="text-gray-500 text-sm p-4 text-center">

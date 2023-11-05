@@ -1,10 +1,7 @@
-
-import AddQualificationsButton from "../../AddQualificationsButton";
+import AddQualificationsButton from "../../../../Teachers/AddQualificationsButton";
 import * as React from 'react'
-import UploadFiles from "../../UploadFiles";
-// import ResetPasswordDialog from "../../ChangePwd";
-import ChangePwdButton from "../../ChangePwdButton";
-import PapersButton from "../PapersButton";
+import UploadFiles from "../../../../Teachers/UploadFiles";
+import Image from "next/image";
 let Qualifications: Array<string>;
 Qualifications = ['Btech', 'Mtech', 'Doc']; 
 
@@ -22,15 +19,7 @@ catch(err){
 }
 
 export default async function Profile({ params }: any) {
-  // const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  // const openDialog = () => {
-  //   setIsDialogOpen(true);
-  // };
-
-  // const closeDialog = () => {
-  //   setIsDialogOpen(false);
-  // };
+  
 const {id} = params;
 console.log(id);
 const teacherData = await getTeacherData(id);
@@ -39,7 +28,7 @@ console.log(teacherData)
     <div className="flex items-center justify-center w-full">
       <div className="bg-white  mt-10 rounded-lg w-full">
         <div className="flex items-center justify-center pt-10 flex-col">
-        <img src={`${process.env.NEXT_PUBLIC_API}/teacher/image/${id}` || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"} className="rounded-full w-32" alt="Profile" />
+        <Image src={`${process.env.NEXT_PUBLIC_API}/teacher/image/${id}` || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"} className="rounded-full w-32" alt="Profile" />
           <h1 className="text-gray-800 font-bold text-xl mt-5">{teacherData.name}</h1>
           <h1 className="text-gray-500 text-sm">{(teacherData.isHod) ? "Hod" : "Faculty"}</h1>
           <h1 className={`text-gray-500 text-sm p-4 text-center ${teacherData.active ? "text-green-500" : 'text-red-500'}`}>
@@ -116,8 +105,6 @@ console.log(teacherData)
         <div className="flex items-center justify-center pt-2 flex-col">
           <AddQualificationsButton teacherId={teacherData._id} />
           <UploadFiles id={id}/>
-          <ChangePwdButton teacherId={teacherData._id}/>
-          <PapersButton/>
         </div>
       </div>
     </div>

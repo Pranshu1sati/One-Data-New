@@ -12,6 +12,7 @@ interface ActivateButtonProps {
   isActive: boolean;
 }
 const ActivateButton: React.FC<ActivateButtonProps> = ({ teacherId, isActive }) => {
+  console.log(isActive)
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleToggle = async() => {
@@ -31,7 +32,8 @@ const ActivateButton: React.FC<ActivateButtonProps> = ({ teacherId, isActive }) 
     );
     toast.success(res.data.message)
     router.refresh();
-    router.push("/Teachers");}
+    // router.push("/Teachers");
+  }
     catch(error : any){
       toast.error(error.res.data.message)
     }
@@ -43,7 +45,7 @@ const ActivateButton: React.FC<ActivateButtonProps> = ({ teacherId, isActive }) 
   return (
     <button id="activate" onClick={handleToggle}>
       
-      { isLoading ? <Spinner/> : isActive ? <BsPersonFillX /> : <BsFillPersonCheckFill />}
+      { isLoading ? <Spinner/> : isActive?  <BsFillPersonCheckFill /> :<BsPersonFillX />}
     </button>
   );
 };

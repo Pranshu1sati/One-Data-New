@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useCallback } from 'react';
-export default function page() {
+export default function Page() {
   const [buttonDisableb, setButtonDisabled] = useState(true);
   const onRegister = useCallback(async (values : any) => {
     try {

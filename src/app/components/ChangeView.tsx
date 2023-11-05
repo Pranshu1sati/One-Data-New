@@ -23,9 +23,9 @@ const ChangeView: React.FC<AddFacultyProps> = ({ _id }) => {
   useEffect(() => {
     async function fetchTeachers() {
       try {
-        const response = await axios.get('http://localhost:8001/api/teacher/info');
-        console.log(response.data);
-        setTeachers(response.data);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/department/info/6502c95d9a5663b5e8a0aadb`)
+        // console.log(res)
+        setTeachers(res.data.teachers);
       } catch (error) {
         console.error('Error fetching teachers:', error);
       }
@@ -74,7 +74,7 @@ const ChangeView: React.FC<AddFacultyProps> = ({ _id }) => {
         <Form className="px-4 rounded mx-auto max-w-3xl w-full my-8 Fields space-y-4 mt-8 h-full">
           <div>
             <h1 className="text-4xl font-bold">Change View</h1>
-            <p className="text-gray-600">THis will change View</p>
+            <p className="text-gray-600">This will change View</p>
           </div>
 
           <div className="flex flex-col w-full h-full">

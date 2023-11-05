@@ -27,9 +27,13 @@ const RemoveTeacher: React.FC<AddFacultyProps> = ({ _id }) => {
   useEffect(() => {
     async function fetchTeachers() {
       try {
-        const response = await axios.get('http://localhost:8001/api/teacher/info');
-        setTeachers(response.data);
-      } catch (error) {
+        
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/department/info/6502c95d9a5663b5e8a0aadb`)
+        // console.log(res)
+        setTeachers(res.data.teachers);
+        // console.log(teachers)
+      } catch (error : any) {
+        toast.error(error.response.data.message)
         console.error('Error fetching teachers:', error);
       }
     }

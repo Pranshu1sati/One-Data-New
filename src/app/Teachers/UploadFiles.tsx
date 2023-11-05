@@ -4,12 +4,15 @@ import ReactModal from "react-modal";
 import { useState } from "react";
 import { Button, Upload, Spin } from "antd";
 import axios from "axios";
-
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 interface IDProps {
   id: string;
 }
 
 const UploadFiles: React.FunctionComponent<IDProps> = (props) => {
+  const router = useRouter();
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleModalOpen = () => {
@@ -40,10 +43,13 @@ const UploadFiles: React.FunctionComponent<IDProps> = (props) => {
             headers,
           }
         );
+          toast.success(response.data.message);
+            router.refresh()
 
         console.log("Upload response:", response);
-      } catch (error) {
+      } catch (error : any) {
         console.error("Error uploading file:", error);
+        toast.error(error.data.message)
       }
     }
   };

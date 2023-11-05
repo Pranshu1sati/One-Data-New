@@ -12,16 +12,17 @@ import { IoMdArrowDroprightCircle } from 'react-icons/Io'
 import { HiSwitchHorizontal } from 'react-icons/hi'
 import { PiStudentBold } from 'react-icons/Pi'
 import { CgProfile } from "react-icons/cg";
+import Link from "next/link";
 export default function SideBar() {
   return (
     <div className=" rounded-md shadow-md  px-2">
       <div className="flex flex-col justify-start item-center">
         <div className=" my-4 border-b border-gray-100 pb-4">
           <SidebarMenuItem Icon={MdDashboard} title="Dashboard" />
-          <SidebarMenuItem Icon={CgProfile} title="AddFaculty" />
-          <SidebarMenuItem Icon={HiSwitchHorizontal} title="ChangeRoles" />
-          <SidebarMenuItem Icon={MdEqualizer} title="Analytics" />
-          <SidebarMenuItem Icon={PiStudentBold} title="Sudents" />
+          <Link href = "/Teachers"><SidebarMenuItem Icon={CgProfile} title="Teachers" /></Link>
+          {/* <Link href = ""><SidebarMenuItem Icon={HiSwitchHorizontal} title="ChangeRoles" /></Link> */}
+          {/* <SidebarMenuItem Icon={MdEqualizer} title="Analytics" /> */}
+          <SidebarMenuItem Icon={PiStudentBold} title="Students" />
           <SidebarMenuItem
             Icon={MdIntegrationInstructions}
             title="Integration"

@@ -20,11 +20,11 @@ const getDepartment = async (departId: string) => {
 export default async function page({ params }: any) {
   // console.log(params);
   const { departId } = params;
-  console.log(departId);
+  // console.log(departId);
   const { department } = await getDepartment(departId);
   console.log(department);
   const { teachers } = department;
-  console.log(teachers, "teacher");
+  // console.log(teachers, "teacher");
   return (
     <main className="mt-5">
       <DepTeachersContainer teachers={teachers} department={department} />

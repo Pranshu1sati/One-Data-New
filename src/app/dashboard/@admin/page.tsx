@@ -58,17 +58,20 @@ const page: React.FC<DashboardProps> = async (req:any) => {
   // console.log(apiEnd);
   const {searchParams}=req;
   const campus=searchParams.campus;
-  console.log("params",);
+  // console.log("params",);
   const { departments } = await getDepartment(campus);
   const { data } = departments;
-  
+  console.log(departments)
   // const data=departments;
   // console.log(departments,data,"data found");
   // const [loading,setLoading]=useState<Boolean>(true);
   return (
     <article className=" p-5 w-full">
+      <div style={{ maxHeight: "400px", overflowY: "auto" }} // Adjust the height as needed
+      >
       <DepartmentContainer departments={data} />
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      </div>
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
         <div className="button bg-blue-500 text-white p-4 rounded-lg flex items-center">
           <PiChalkboardTeacherBold className="text-2xl mr-2" />
           <span>

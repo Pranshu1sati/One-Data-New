@@ -4,7 +4,7 @@ import {usePathname} from "next/navigation"
 import * as React from 'react'
 import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-const header = () => {
+const Header = () => {
     const path = usePathname();
     const isPublic = path ==='/login'
     let Links =[
@@ -29,4 +29,4 @@ const header = () => {
         </div>
   )
 }
-export default header
+export default Header

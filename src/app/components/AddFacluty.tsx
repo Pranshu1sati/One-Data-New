@@ -26,7 +26,9 @@ const AddFaculty: React.FC<AddFacultyProps> = ({ _id }) => {
     async function fetchTeachers() {
       try {
         const response = await axios.get('http://localhost:8001/api/teacher/info');
-        setTeachers(response.data);
+        console.log(response.data);
+        setTeachers(response.data.data);
+        console.log(teachers)
       } catch (error) {
         console.error('Error fetching teachers:', error);
       }
@@ -82,13 +84,14 @@ const AddFaculty: React.FC<AddFacultyProps> = ({ _id }) => {
           <div className="flex flex-col w-full h-full">
             <label htmlFor="teacherId">Select Teacher</label>
             <Field as="select" id="teacherId" name="teacherId" className="border-solid border-2 border-gray-600">
-              <option value="">Select a teacher</option>
-              {teachers.map((teacher: any) => (
-                <option key={teacher._id} value={teacher._id}>
-                  {teacher.name}
-                </option>
-              ))}
-            </Field>
+  <option value="">Select a teacher</option>
+  {teachers.length > 0 && teachers.map((teacher: any) => (
+    <option key={teacher._id} value={teacher._id}>
+      {teacher.name}
+    </option>
+  ))}
+</Field>
+
             <ErrorMessage name="teacherId" component="div" className="text-red-500" />
             <button
               type="submit"

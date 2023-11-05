@@ -47,7 +47,7 @@ const UploadFiles: React.FunctionComponent<IDProps> = (props) => {
 
   return (
     <>
-      <button onClick={handleModalOpen}>Add Faculty Button</button>
+      <button onClick={handleModalOpen}>Add {props.route} Button</button>
       <ReactModal
         isOpen={modalOpen}
         onRequestClose={handleModalClose}

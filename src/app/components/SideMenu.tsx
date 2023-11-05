@@ -2,6 +2,7 @@
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Disclosure } from "@headlessui/react";
+import { cookies } from 'next/headers'
 // import PropTypes from 'prop-types';
 import {
   MdDashboard,
@@ -11,10 +12,12 @@ import {
   MdExitToApp,
   MdIntegrationInstructions
 } from "react-icons/md";
-import {IoMdArrowDroprightCircle} from 'react-icons/io'
+import Link from 'next/link'
+import {IoMdArrowDroprightCircle} from 'react-icons/Io'
 import {HiSwitchHorizontal} from 'react-icons/hi'
-import {PiStudentBold} from 'react-icons/pi'
+import {PiStudentBold} from 'react-icons/Pi'
 import { CgProfile } from "react-icons/cg";
+// import { useRouter } from "next/navigation";
 // import { FaRegComments } from "react-icons/fa";
 // import { BiMessageSquareDots } from "react-icons/bi";
 
@@ -24,6 +27,25 @@ import { CgProfile } from "react-icons/cg";
 //   };
 
 function SideNavbar() {
+
+// const router = useRouter()
+const logout = async () => {
+  async function deleteTokens() {
+    try {
+      // Assuming cookies is a function that returns a cookie handler
+      "use server"
+      const cookiesHandler = cookies();
+
+      cookiesHandler.delete('Authorization');
+      // Add more token deletion logic if needed
+    } catch (error) {
+      console.error('Error deleting tokens:', error);
+      // Handle error if necessary
+    }
+  }
+
+  await deleteTokens();
+};
   return (
     <div>
       <Disclosure  >
@@ -46,7 +68,7 @@ function SideNavbar() {
                 </h1>
                 <div className=" my-4 border-b border-gray-100 pb-4">
                   <SidebarMenuItem Icon={MdDashboard} title="Dashboard" />
-                  <SidebarMenuItem Icon={CgProfile} title="AddFaculty" />
+                  <Link href = "/Teachers"><SidebarMenuItem Icon={CgProfile} title="Teachers" /></Link>
                   <SidebarMenuItem Icon={HiSwitchHorizontal} title="ChangeRoles" />
                   <SidebarMenuItem Icon={MdEqualizer} title="Analytics" />
                   <SidebarMenuItem Icon={PiStudentBold} title="Sudents" />
@@ -62,7 +84,7 @@ function SideNavbar() {
                 </div>
                 {/* logout */}
                 <div className="my-4">
-                  <SidebarMenuItem Icon={MdExitToApp} title="Logout" />
+                  <SidebarMenuItem Icon={MdExitToApp} onClick={logout} title="Logout" />
                 </div>
               </div>
             </Disclosure.Panel>

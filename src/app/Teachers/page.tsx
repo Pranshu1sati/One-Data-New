@@ -61,14 +61,16 @@ export default async function page() {
         </div>
         
         <hr />
-       
-        {data.map((data : any) => (
+        <div
+            style={{ maxHeight: "400px", overflowY: "auto" }} // Adjust the height as needed
+          >
+        {data.data.map((data : any) => (
           <React.Fragment key={data._id}>
             <TeachersList teacher={data }/>
             <hr />
           </React.Fragment>
         ))}
-    
+    </div>
       </section>
     </article>
     </>

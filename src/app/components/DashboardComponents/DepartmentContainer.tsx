@@ -6,7 +6,7 @@ interface Department {
   _id: string;
   name: string;
   __v: number;
-  hod:string | undefined;
+  HOD:any;
 }
 
 interface DepartmentContainerProps {
@@ -51,11 +51,11 @@ const DepartmentContainer: React.FC<DepartmentContainerProps> = ({ departments }
           }} className='bg-gray-500 w-full flex justify-center rounded-b-md   text-white'>GEU</Link>
           <Link href={{
             pathname:"/dashboard",
-            query:{campus:"GEMS"}
+            query:{campus:"GEHU-dehradun"}
           }}>GEHU-dehradun</Link>
           <Link href={{
             pathname:"/dashboard",
-            query:{campus:"GEMS"}
+            query:{campus:"GEHU-bheemtal"}
           }}>GEHU-bheemtal</Link>
           <Link href={{
             pathname:"/dashboard",
